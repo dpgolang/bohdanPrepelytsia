@@ -36,7 +36,7 @@ func validateSize(w, h uint64) bool {
 
 func main() {
 	args := os.Args[1:]
-	var w,h uint64
+	var w, h uint64
 	var err error
 	if w, h, err = validateArgs(args); err != nil {
 		fmt.Println(err)

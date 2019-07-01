@@ -58,11 +58,12 @@ func fib_rec(n int) int {
 	}
 	return fib_rec(n-1) + fib_rec(n-2)
 }
+
 //output of result
-//we need flag there to check if fib(i) 
+//we need flag there to check if fib(i)
 //is the first element of our set
 //to write commas correct
-func outPut(n, m int) { 
+func outPut(n, m int) {
 	flag := true
 	fmt.Printf("fibbo[%d,%d]:", n, m)
 	for i := 0; fib(i) <= m; i++ {

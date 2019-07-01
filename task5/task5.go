@@ -8,11 +8,13 @@ import (
 )
 
 const maxCountSymbols = 9
+
 //const billion = uint64(100000000)
 const (
 	thousands = iota
 	millions
 )
+
 //validate os.Args
 func validateArgs(args []string) error {
 	if len(args) == 0 {
@@ -23,13 +25,14 @@ func validateArgs(args []string) error {
 	}
 	return errors.New("there must be only one argument!")
 }
-func deleteZerosOnStart(s string) (string,error){
+func deleteZerosOnStart(s string) (string, error) {
 	n, err := strconv.ParseUint(s, 10, 32)
-    if err != nil {
-        return "",errors.New("it must be a number!")
-    }
-    return strconv.FormatUint(n,10),nil
+	if err != nil {
+		return "", errors.New("it must be a number!")
+	}
+	return strconv.FormatUint(n, 10), nil
 }
+
 //validate string for beiing a number and how correct it was written
 func validateInput(s string) error {
 	if len(s) > 9 {
@@ -40,6 +43,7 @@ func validateInput(s string) error {
 	}
 	return nil
 }
+
 //fill special slice for number
 //slice for 123 gonna be [       1 2 3]
 func fillNumber(s string) ([]string, error) {
@@ -178,14 +182,16 @@ func addTens(number string) string {
 		return "восемьдесят "
 	case "9":
 		return "девяносто "
-	case "0": return ""
+	case "0":
+		return ""
 	default:
 		return ""
 	}
 }
+
 //connects all parts of answer
 //we are going to through the numbers []string
-//and check number by number 
+//and check number by number
 func getResult(numbers []string) string {
 	answer := ""
 	flag := false
@@ -198,8 +204,8 @@ func getResult(numbers []string) string {
 		return "ноль"
 	}
 
-	if (numbers[0] != "" || numbers[1] != "" || numbers[2] != "") {//&& //check if there are empty part in number like xxx123123
-																	//to skil word "миллион" 
+	if numbers[0] != "" || numbers[1] != "" || numbers[2] != "" { //&& //check if there are empty part in number like xxx123123
+		//to skil word "миллион"
 		answer += addHundreds(numbers[0])
 		if numbers[1] == "1" {
 			answer += addTensUpTo20(numbers[2])
@@ -211,9 +217,9 @@ func getResult(numbers []string) string {
 		}
 	}
 
-	if (numbers[3] != "" || numbers[4] != "" || numbers[5] != "") && 	//check if there are empty part in number like xxx123
-		(numbers[3] != "0" || numbers[4] != "0" || numbers[5] != "0") {//check if there are 0's in number part like xxx123 
-		answer += addHundreds(numbers[3])								//to skip word "тысяча" 
+	if (numbers[3] != "" || numbers[4] != "" || numbers[5] != "") && //check if there are empty part in number like xxx123
+		(numbers[3] != "0" || numbers[4] != "0" || numbers[5] != "0") { //check if there are 0's in number part like xxx123
+		answer += addHundreds(numbers[3]) //to skip word "тысяча"
 		if numbers[4] == "1" {
 			answer += addTensUpTo20(numbers[5])
 			answer += addThousands("")
@@ -247,7 +253,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	if args[0],err = deleteZerosOnStart(args[0]); err!=nil{
+	if args[0], err = deleteZerosOnStart(args[0]); err != nil {
 		fmt.Println(err)
 	}
 	if number, err = fillNumber(args[0]); err != nil {
