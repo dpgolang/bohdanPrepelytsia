@@ -9,20 +9,16 @@ import (
 	"strings"
 )
 
-func MakeSliceResult(n uint64)  []string{
-	var answer []string
-	if n == 1 {
-		answer=make([]string,1)
-		answer[0] = ""
-		return answer
+func GetAnswer(n int64) string {
+	if n < 1 {
+		return ""
 	}
-	countOfElements:= int(math.Ceil(math.Sqrt(float64(n)))-1) //get count of elements (round to the least integer value greater than or equal sqrt(n) and -1)
-	fmt.Println(countOfElements)
-	answer=make([]string,countOfElements)
-	for i := 1; i <= countOfElements; i++ {
-		answer[i-1] = strconv.FormatInt(int64(i), 10)
+	maxRoot := int(math.Ceil(math.Sqrt(float64(n))) - 1)
+	rootNambers := []string{}
+	for i := 0; i < maxRoot; i++ {
+		rootNambers = append(rootNambers, strconv.FormatInt(int64(i+1), 10))
 	}
-	return answer
+	return strings.Join(rootNambers, ",")
 }
 func ArgsCheck(args []string) (uint64, error) {
 	if len(args) == 0 {
@@ -31,7 +27,7 @@ func ArgsCheck(args []string) (uint64, error) {
 	if len(args) > 1 {
 		return 0, errors.New("there should be only one param n!")
 	}
-	n, err := strconv.ParseUint(args[0], 10, 64) 
+	n, err := strconv.ParseUint(args[0], 10, 64)
 	if err != nil {
 		return 0, fmt.Errorf("something wrong with your n: %s", err)
 	}
@@ -44,7 +40,5 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	answ:= MakeSliceResult(n)
-	outPut:=strings.Join(answ,",")
-	fmt.Println(outPut)
+	fmt.Println(GetAnswer(int64(n)))
 }
