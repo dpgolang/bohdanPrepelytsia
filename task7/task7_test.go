@@ -41,7 +41,7 @@ func TestGetAnswer(t *testing.T) {
 	for _, answer := range answers {
 		gotNumbers := GetAnswer(answer.square)
 		if gotNumbers != answer.expectedNumbers {
-			t.Errorf("For %s, expected: %s, got %s", answer.testName, answer.expectedNumbers, gotNumbers)
+			t.Errorf("For %d, expected: %s, got %s",answer.square, answer.expectedNumbers, gotNumbers)
 		}
 	}
 }
